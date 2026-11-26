@@ -1,0 +1,44 @@
+{% extends 'sports/base.html' %}
+{% block title %}Dashboard | Sports Club Management{% endblock %}
+{% block page_heading %}Dashboard{% endblock %}
+{% block content %}
+<div class="welcome-row">
+    <div>
+        <p class="eyebrow">OVERVIEW</p>
+        <h2>Welcome to your sports hub</h2>
+        <p class="muted">A central place to keep track of students, clubs, teams and fixtures.</p>
+    </div>
+    <span class="date-chip">Management overview</span>
+</div>
+
+<div class="stats-grid">
+    <article class="stat-card"><span class="stat-icon purple">♙</span><p>Total students</p><strong>{{ total_students|default:"—" }}</strong><small>Registered students</small></article>
+    <article class="stat-card"><span class="stat-icon orange">⚑</span><p>Sports clubs</p><strong>{{ total_clubs|default:"—" }}</strong><small>Available clubs</small></article>
+    <article class="stat-card"><span class="stat-icon green">⚽</span><p>Teams</p><strong>{{ total_teams|default:"—" }}</strong><small>Active teams</small></article>
+    <article class="stat-card"><span class="stat-icon blue">▦</span><p>Upcoming fixtures</p><strong>{{ upcoming_fixtures|default:"—" }}</strong><small>Scheduled matches</small></article>
+</div>
+
+<div class="content-grid">
+    <article class="panel">
+        <div class="panel-heading"><div><p class="eyebrow">SCHEDULE</p><h3>Upcoming fixtures</h3></div><a class="text-link" href="{% url 'fixtures' %}">View all</a></div>
+        {% if recent_fixtures %}
+            <div class="fixture-list">
+                {% for fixture in recent_fixtures %}
+                <div class="fixture-row">
+                    <div class="fixture-teams"><strong>{{ fixture.home_team }}</strong><span>vs</span><strong>{{ fixture.away_team }}</strong></div>
+                    <div class="fixture-meta">{{ fixture.fixture_date|date:"M d, Y" }} · {{ fixture.start_time|time:"g:i A" }}<small>{{ fixture.venue }}</small></div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state"><span>▦</span><strong>No fixtures to display yet</strong><p>Upcoming matches will appear here when available.</p></div>
+        {% endif %}
+    </article>
+    <article class="panel quick-panel">
+        <p class="eyebrow">QUICK ACCESS</p><h3>Manage your system</h3>
+        <a class="quick-link" href="{% url 'students' %}"><span>♙</span><div><strong>Students</strong><small>View student records</small></div><b>→</b></a>
+        <a class="quick-link" href="{% url 'clubs' %}"><span>⚑</span><div><strong>Sports clubs</strong><small>Explore registered clubs</small></div><b>→</b></a>
+        <a class="quick-link" href="{% url 'memberships' %}"><span>▤</span><div><strong>Memberships</strong><small>Review registrations</small></div><b>→</b></a>
+    </article>
+</div>
+{% endblock %}

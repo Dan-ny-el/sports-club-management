@@ -1,0 +1,40 @@
+{% extends 'sports/base.html' %}
+{% block title %}Fixtures | Sports Club Management{% endblock %}
+{% block page_heading %}Fixtures{% endblock %}
+{% block content %}
+<div class="section-intro">
+    <div><p class="eyebrow">DIRECTORY</p><h2>Match schedule and fixture information</h2><p class="muted">Information currently available in the system.</p></div>
+    <span class="count-chip">{{ fixtures|length }} records</span>
+</div>
+<div class="panel table-panel">
+    <div class="table-toolbar"><div><h3>Fixtures list</h3><p class="muted">Records supplied by the application.</p></div></div>
+    {% if fixtures %}
+    <div class="table-wrap">
+        <table>
+            <thead><tr>
+                    <th>Home team</th>
+                    <th>Away team</th>
+                    <th>Date</th>
+                    <th>Start time</th>
+                    <th>Venue</th>
+                    <th>Status</th>
+            </tr></thead>
+            <tbody>
+                {% for item in fixtures %}
+                <tr>
+                    <td>{{ item.home_team }}</td>
+                    <td>{{ item.away_team }}</td>
+                    <td>{{ item.fixture_date }}</td>
+                    <td>{{ item.start_time }}</td>
+                    <td>{{ item.venue }}</td>
+                    <td>{{ item.match_status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state"><span>▤</span><strong>No fixtures are available.</strong><p>When records are added, they will be shown here.</p></div>
+    {% endif %}
+</div>
+{% endblock %}

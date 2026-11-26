@@ -25,6 +25,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(unique=True)
     ROLE_CHOICES = [
         ("admin", "Admin"),
         ("captain", "Team Captain"),
@@ -42,7 +43,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     user_id = models.AutoField(primary_key=True)
     full_name = models.CharField(max_length=150)
-    email = models.EmailField(max_length=254, unique=True)
     # Overrides AbstractBaseUser.password so the column is called password_hash
     password = models.CharField("password_hash", max_length=128, db_column="password_hash")
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default="student")

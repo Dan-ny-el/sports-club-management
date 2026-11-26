@@ -7,10 +7,20 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .decorators import admin_required, captain_or_admin_required, student_or_above_required
 from .forms import StudentForm, ClubForm, TeamForm, MembershipForm, FixtureForm
 from .models import Student, SportsClub, Team, Membership, Fixture
+from datetime import date
 
 @login_required
 def dashboard(request):
-    return render(request, 'sports/dashboard.html')
+    upcoming = Fixture.objects.filter(fixture_date__gte=date.today(),
+                                      match_status="scheduled")
+    return render(request, "sports/dashboard.html", {
+        "total_students": Student.objects.count(),
+        "total_clubs": SportsClub.objects.count(),
+        "total_teams": Team.objects.count(),
+        "upcoming_fixtures": upcoming.count(),
+        "recent_fixtures": upcoming.select_related("home_team", "away_team")
+                                   .order_by("fixture_date", "start_time")[:5],
+    })
 
 def placeholder(request, *args, **kwargs):
     return HttpResponse("Coming Soon....")

@@ -1,0 +1,36 @@
+{% extends 'sports/base.html' %}
+{% block title %}Sports clubs | Sports Club Management{% endblock %}
+{% block page_heading %}Sports clubs{% endblock %}
+{% block content %}
+<div class="section-intro">
+    <div><p class="eyebrow">DIRECTORY</p><h2>Browse and manage registered clubs</h2><p class="muted">Information currently available in the system.</p></div>
+    <span class="count-chip">{{ clubs|length }} records</span>
+</div>
+<div class="panel table-panel">
+    <div class="table-toolbar"><div><h3>Sports clubs list</h3><p class="muted">Records supplied by the application.</p></div></div>
+    {% if clubs %}
+    <div class="table-wrap">
+        <table>
+            <thead><tr>
+                    <th>Club name</th>
+                    <th>Sport</th>
+                    <th>Date created</th>
+                    <th>Status</th>
+            </tr></thead>
+            <tbody>
+                {% for item in clubs %}
+                <tr>
+                    <td>{{ item.club_name }}</td>
+                    <td>{{ item.sport_type }}</td>
+                    <td>{{ item.date_created }}</td>
+                    <td>{{ item.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state"><span>▤</span><strong>No sports clubs are available.</strong><p>When records are added, they will be shown here.</p></div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sports Club Management{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'sports/style.css' %}">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="{% url 'dashboard' %}">
+                <span class="brand-mark">SC</span>
+                <span><strong>SPORTS CLUB</strong><small>MANAGEMENT</small></span>
+            </a>
+            <p class="nav-label">MAIN MENU</p>
+            <nav class="side-nav">
+                <a href="{% url 'dashboard' %}" class="{% if active_page == 'dashboard' %}active{% endif %}">Dashboard</a>
+                <a href="{% url 'students' %}" class="{% if active_page == 'students' %}active{% endif %}">Students</a>
+                <a href="{% url 'clubs' %}" class="{% if active_page == 'clubs' %}active{% endif %}">Sports clubs</a>
+                <a href="{% url 'teams' %}" class="{% if active_page == 'teams' %}active{% endif %}">Teams</a>
+                <a href="{% url 'memberships' %}" class="{% if active_page == 'memberships' %}active{% endif %}">Memberships</a>
+                <a href="{% url 'fixtures' %}" class="{% if active_page == 'fixtures' %}active{% endif %}">Fixtures</a>
+            </nav>
+            <div class="sidebar-note">
+                <span class="note-dot"></span>
+                <div><strong>Stay in the game</strong><small>Manage your sports community.</small></div>
+            </div>
+        </aside>
+
+        <main class="main-area">
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">SPORTS CLUB PORTAL</p>
+                    <h1>{% block page_heading %}Dashboard{% endblock %}</h1>
+                </div>
+                <div class="topbar-user">
+                    <span class="avatar">SC</span>
+                    <span><strong>Club Administrator</strong><small>Management portal</small></span>
+                </div>
+            </header>
+
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="message {{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <section class="page-content">
+                {% block content %}{% endblock %}
+            </section>
+            <footer class="footer">Sports Club Management System <span>•</span> Dashboard interface</footer>
+        </main>
+    </div>
+</body>
+</html>

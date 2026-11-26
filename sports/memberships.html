@@ -1,0 +1,40 @@
+{% extends 'sports/base.html' %}
+{% block title %}Memberships | Sports Club Management{% endblock %}
+{% block page_heading %}Memberships{% endblock %}
+{% block content %}
+<div class="section-intro">
+    <div><p class="eyebrow">DIRECTORY</p><h2>Review student club registrations</h2><p class="muted">Information currently available in the system.</p></div>
+    <span class="count-chip">{{ memberships|length }} records</span>
+</div>
+<div class="panel table-panel">
+    <div class="table-toolbar"><div><h3>Memberships list</h3><p class="muted">Records supplied by the application.</p></div></div>
+    {% if memberships %}
+    <div class="table-wrap">
+        <table>
+            <thead><tr>
+                    <th>Student</th>
+                    <th>Club</th>
+                    <th>Registered</th>
+                    <th>Fee</th>
+                    <th>Payment</th>
+                    <th>Membership</th>
+            </tr></thead>
+            <tbody>
+                {% for item in memberships %}
+                <tr>
+                    <td>{{ item.student }}</td>
+                    <td>{{ item.club }}</td>
+                    <td>{{ item.registration_date }}</td>
+                    <td>{{ item.fee_amount }}</td>
+                    <td>{{ item.payment_status }}</td>
+                    <td>{{ item.membership_status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state"><span>▤</span><strong>No membership records are available.</strong><p>When records are added, they will be shown here.</p></div>
+    {% endif %}
+</div>
+{% endblock %}
