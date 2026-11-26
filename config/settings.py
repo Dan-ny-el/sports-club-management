@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sports',
 ]
+AUTH_USER_MODEL = "sports.User"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
