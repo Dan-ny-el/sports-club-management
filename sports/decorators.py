@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 def role_required(*allowed_roles):
     """
     Restrict access to a view based on user roles."""
-
+def role_required(*allowed_roles):
     def decorator(view_func):
         @wraps(view_func)
         @login_required
@@ -17,5 +17,5 @@ def role_required(*allowed_roles):
     return decorator 
 
 admin_required = role_required('Admin')
-captain_or_admin_required = role_required('Admin',  'manager')
-student_or_above_required = role_required('Admin', 'manager', 'Student')
+captain_or_admin_required = role_required('Admin',  'captain')
+student_or_above_required = role_required('Admin', 'captain', 'Student')
