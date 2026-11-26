@@ -27,10 +27,13 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     ROLE_CHOICES = [
         ("admin", "Admin"),
-        ("manager", "Club Manager"),
+        ("captain", "Team Captain"),
         ("coach", "Coach"),
         ("student", "Student"),
     ]
+    student = models.OneToOneField(
+    "Student", null=True, blank=True, on_delete=models.SET_NULL
+)
     ACCOUNT_STATUS_CHOICES = [
         ("active", "Active"),
         ("inactive", "Inactive"),
